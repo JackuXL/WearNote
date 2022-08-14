@@ -12,8 +12,8 @@ android {
         applicationId "cn.wearbbs.note"
         minSdk 25
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 5
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -73,4 +73,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     ksp "androidx.room:room-compiler:$room_version"
+
+    implementation "com.google.accompanist:accompanist-pager:0.25.1"
 }
