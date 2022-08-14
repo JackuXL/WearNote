@@ -1,0 +1,20 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap'}
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        jcenter()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "WearNote"
+include ':app'

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WearNote</string>
+    <string name="title_activity_edit">EditActivity</string>
+    <string name="title_activity_add">AddActivity</string>
+</resources>
