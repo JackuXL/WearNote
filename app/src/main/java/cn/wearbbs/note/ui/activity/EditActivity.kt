@@ -7,14 +7,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -23,12 +19,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication
 import cn.wearbbs.note.database.bean.Note
 import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
+import kotlinx.coroutines.launch
 
 class EditActivity : ComponentActivity() {
     @OptIn(ExperimentalComposeUiApi::class)
@@ -40,8 +36,8 @@ class EditActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    var note: Note by remember { mutableStateOf(Note(0,"","",0L)) }
-
+                    var note: Note by remember { mutableStateOf(Note(0, "", "", 0L)) }
+                    val scope = rememberCoroutineScope()
                     LaunchedEffect(null){
                         note = MainApplication.noteDao.findById(intent.getIntExtra("id",0))
                     }
@@ -56,7 +52,7 @@ class EditActivity : ComponentActivity() {
                                         Intent(
                                             this@EditActivity,
                                             FullActivity::class.java
-                                        ).putExtra("id",note.id)
+                                        ).putExtra("id", note.id)
                                     )
                                 })
                         }
@@ -66,20 +62,26 @@ class EditActivity : ComponentActivity() {
                             onValueChange = { note = note.copy(content = it) },
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                             keyboardActions = KeyboardActions(
-                                onDone = {keyboardController?.hide()}),
+                                onDone = { keyboardController?.hide() }),
                             modifier = Modifier.weight(4f)
                         )
                         Spacer(modifier = Modifier.height(5.dp))
-                        Row(modifier = Modifier.fillMaxWidth().weight(2f), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(2f), horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
                             Button(onClick = {
-                                MainApplication.noteDao.update(note)
-                                Toast.makeText(this@EditActivity, "保存成功", Toast.LENGTH_SHORT).show()
-                                finish()
-
+                                scope.launch {
+                                    MainApplication.noteDao.update(note)
+                                    Toast.makeText(this@EditActivity, "保存成功", Toast.LENGTH_SHORT)
+                                        .show()
+                                    finish()
+                                }
                             }) {
                                 Text(text = "保存")
                             }
-                            Button(onClick = { note = note.copy(content=note.content+"\n") }) {
+                            Button(onClick = { note = note.copy(content = note.content + "\n") }) {
                                 Text(text = "换行")
                             }
                         }

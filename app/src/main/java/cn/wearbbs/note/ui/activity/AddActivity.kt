@@ -1,30 +1,24 @@
 package cn.wearbbs.note.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication
 import cn.wearbbs.note.database.bean.Note
 import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
+import kotlinx.coroutines.launch
 
 class AddActivity : ComponentActivity() {
     @OptIn(ExperimentalComposeUiApi::class)
@@ -37,8 +31,9 @@ class AddActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    var name = ""
+                    var name by remember { mutableStateOf("") }
                     val keyboardController = LocalSoftwareKeyboardController.current
+                    val scope = rememberCoroutineScope()
                     Column(modifier = Modifier.padding(5.dp)) {
                         Text(text = "新建")
                         Spacer(modifier = Modifier.height(5.dp))
@@ -53,10 +48,16 @@ class AddActivity : ComponentActivity() {
                         )
                         Spacer(modifier = Modifier.height(5.dp))
                         Button(onClick = {
-                            MainApplication.noteDao.insertAll(Note(name = name, createTime = System.currentTimeMillis()))
-                            Toast.makeText(this@AddActivity, "新建成功", Toast.LENGTH_SHORT).show()
-                            finish()
-
+                            scope.launch {
+                                MainApplication.noteDao.insertAll(
+                                    Note(
+                                        name = name,
+                                        createTime = System.currentTimeMillis()
+                                    )
+                                )
+                                Toast.makeText(this@AddActivity, "新建成功", Toast.LENGTH_SHORT).show()
+                                finish()
+                            }
                         }, modifier = Modifier.fillMaxWidth()) {
                             Text(text = "确定")
                         }
