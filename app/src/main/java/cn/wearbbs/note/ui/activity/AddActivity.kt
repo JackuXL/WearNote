@@ -12,9 +12,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication
 import cn.wearbbs.note.database.bean.Note
 import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
@@ -26,7 +28,6 @@ class AddActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WearNoteTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -35,7 +36,7 @@ class AddActivity : ComponentActivity() {
                     val keyboardController = LocalSoftwareKeyboardController.current
                     val scope = rememberCoroutineScope()
                     Column(modifier = Modifier.padding(5.dp)) {
-                        Text(text = "新建")
+                        Text(text = stringResource(id = R.string.add))
                         Spacer(modifier = Modifier.height(5.dp))
                         TextField(
                             value = name,
@@ -44,9 +45,10 @@ class AddActivity : ComponentActivity() {
                             keyboardActions = KeyboardActions(
                                 onDone = {keyboardController?.hide()}),
                             modifier = Modifier.weight(4f),
-                            label = { Text(text = "文件名...") }
+                            label = { Text(text = stringResource(id = R.string.file_name)) }
                         )
                         Spacer(modifier = Modifier.height(5.dp))
+                        val msg = stringResource(id = R.string.add_successfully)
                         Button(onClick = {
                             scope.launch {
                                 MainApplication.noteDao.insertAll(
@@ -55,11 +57,12 @@ class AddActivity : ComponentActivity() {
                                         createTime = System.currentTimeMillis()
                                     )
                                 )
-                                Toast.makeText(this@AddActivity, "新建成功", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@AddActivity, msg, Toast.LENGTH_SHORT).show()
+                                setResult(RESULT_OK, intent)
                                 finish()
                             }
                         }, modifier = Modifier.fillMaxWidth()) {
-                            Text(text = "确定")
+                            Text(text = stringResource(id = R.string.add))
                         }
                     }
                 }

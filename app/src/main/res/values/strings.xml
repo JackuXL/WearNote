@@ -3,4 +3,21 @@
     <string name="title_activity_edit">EditActivity</string>
     <string name="title_activity_add">AddActivity</string>
     <string name="title_activity_full">FullActivity</string>
+    <string name="rename">重命名</string>
+    <string name="background">背景</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="note">文档</string>
+    <string name="about">关于</string>
+    <string name="add">新建</string>
+    <string name="empty">暂无文档</string>
+    <string name="about_author">Made with ❤ by JackuXL</string>
+    <string name="about_organization">TechNetSpace 出品</string>
+    <string name="about_feedback">反馈：support@technet.space</string>
+    <string name="edit">编辑</string>
+    <string name="save_successfully">保存成功</string>
+    <string name="save">保存</string>
+    <string name="enter">换行</string>
+    <string name="file_name">文件名</string>
+    <string name="add_successfully">新建成功</string>
 </resources>

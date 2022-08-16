@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import cn.wearbbs.note.R
@@ -44,17 +45,20 @@ class EditActivity : ComponentActivity() {
                     val keyboardController = LocalSoftwareKeyboardController.current
                     Column(modifier = Modifier.padding(5.dp)) {
                         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-                            Text(text = "编辑")
-                            Icon(painter = painterResource(id = R.drawable.baseline_fullscreen_24), contentDescription = "Add", tint = Color.White, modifier = Modifier
-                                .clip(CircleShape)
-                                .clickable {
-                                    startActivity(
-                                        Intent(
-                                            this@EditActivity,
-                                            FullActivity::class.java
-                                        ).putExtra("id", note.id)
-                                    )
-                                })
+                            Text(text = stringResource(id = R.string.edit))
+                            Icon(painter = painterResource(id = R.drawable.baseline_fullscreen_24),
+                                contentDescription = "Add",
+                                tint = Color.White,
+                                modifier = Modifier
+                                    .clip(CircleShape)
+                                    .clickable {
+                                        startActivity(
+                                            Intent(
+                                                this@EditActivity,
+                                                FullActivity::class.java
+                                            ).putExtra("id", note.id)
+                                        )
+                                    })
                         }
                         Spacer(modifier = Modifier.height(5.dp))
                         TextField(
@@ -71,18 +75,20 @@ class EditActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .weight(2f), horizontalArrangement = Arrangement.SpaceBetween
                         ) {
+                            val msg = stringResource(id = R.string.save_successfully)
                             Button(onClick = {
                                 scope.launch {
                                     MainApplication.noteDao.update(note)
-                                    Toast.makeText(this@EditActivity, "保存成功", Toast.LENGTH_SHORT)
+                                    Toast.makeText(this@EditActivity, msg, Toast.LENGTH_SHORT)
                                         .show()
+                                    setResult(RESULT_OK)
                                     finish()
                                 }
                             }) {
-                                Text(text = "保存")
+                                Text(text = stringResource(id = R.string.save))
                             }
                             Button(onClick = { note = note.copy(content = note.content + "\n") }) {
-                                Text(text = "换行")
+                                Text(text = stringResource(id = R.string.enter))
                             }
                         }
                     }
