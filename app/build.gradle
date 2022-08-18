@@ -6,12 +6,12 @@ plugins {
 
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "cn.wearbbs.note"
         minSdk 25
-        targetSdk 32
+        targetSdk 33
         versionCode 5
         versionName "2.0"
 
@@ -75,5 +75,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     ksp "androidx.room:room-compiler:$room_version"
 
-    implementation "com.google.accompanist:accompanist-pager:0.25.1"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
 }

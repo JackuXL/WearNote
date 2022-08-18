@@ -4,6 +4,7 @@ buildscript {
         ksp_version = "1.7.0-1.0.6"
         kotlin_version = "1.7.0"
         room_version = "2.4.3"
+        accompanist_version = "0.25.1"
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.2'

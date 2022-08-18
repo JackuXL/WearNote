@@ -43,6 +43,8 @@ import cn.wearbbs.note.ui.activity.ui.theme.Blue
 import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import java.sql.Date
 import java.sql.Timestamp
@@ -53,12 +55,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WearNoteTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
                     var notes: List<Note> by remember { mutableStateOf(listOf()) }
                     var listFlag by remember { mutableStateOf(false) }
                     var shadowState by remember {
                         mutableStateOf(false)
                     }
+                    val pagerState = rememberPagerState()
                     val launcher =
                         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                             when (it.resultCode) {
@@ -80,83 +86,94 @@ class MainActivity : ComponentActivity() {
                     LaunchedEffect(listFlag) {
                         notes = noteDao.getAll()
                     }
-                    Box {
-                        if (shadowState) {
-                            Box {
-                                Image(
-                                    painter = painterResource(id = R.drawable.bg_longpress),
-                                    contentDescription = stringResource(id = R.string.background),
-                                    modifier = Modifier.fillMaxSize()
-                                )
-                                Column(
-                                    modifier = Modifier.align(Center),
-                                    horizontalAlignment = CenterHorizontally
-                                ) {
-                                    Row {
-                                        Column(horizontalAlignment = CenterHorizontally) {
-                                            Icon(
-                                                imageVector = Icons.Default.Edit,
-                                                contentDescription = stringResource(id = R.string.rename),
-                                                modifier = Modifier
-                                                    .clip(CircleShape)
-                                                    .background(Blue)
-                                                    .padding(10.dp)
-                                            )
-                                            Spacer(modifier = Modifier.height(3.dp))
-                                            Text(
-                                                text = stringResource(id = R.string.rename),
-                                                fontSize = 10.sp
-                                            )
-                                        }
-
-                                        Spacer(modifier = Modifier.width(40.dp))
-                                        Column(horizontalAlignment = CenterHorizontally) {
-                                            Icon(
-                                                imageVector = Icons.Default.Delete,
-                                                contentDescription = stringResource(id = R.string.delete),
-                                                modifier = Modifier
-                                                    .clip(CircleShape)
-                                                    .background(Color.Red)
-                                                    .clickable {
-                                                        println(clickedNote)
-                                                        scope.launch {
-                                                            noteDao.delete(clickedNote)
-                                                            shadowState = false
-                                                            notes = notes
-                                                                .toMutableList()
-                                                                .also { it.remove(clickedNote) }
-                                                        }
-                                                    }
-                                                    .padding(10.dp))
-                                            Spacer(modifier = Modifier.height(3.dp))
-                                            Text(
-                                                text = stringResource(id = R.string.delete),
-                                                fontSize = 10.sp
-                                            )
-                                        }
-
-                                    }
-                                    Spacer(modifier = Modifier.height(15.dp))
-                                    Box(
-                                        contentAlignment = Center,
-                                        modifier = Modifier
-                                            .clip(RoundedCornerShape(10.dp))
-                                            .background(Color.DarkGray)
-                                            .clickable { shadowState = false }
-                                            .padding(horizontal = 15.dp, vertical = 3.dp)
+                    if (shadowState) {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            Image(
+                                painter = painterResource(id = R.drawable.bg_longpress),
+                                contentDescription = stringResource(id = R.string.background),
+                                modifier = Modifier.fillMaxSize()
+                            )
+                            Column(
+                                modifier = Modifier
+                                    .align(Center)
+                                    .fillMaxHeight(0.6f)
+                                    .fillMaxWidth(0.8f),
+                                horizontalAlignment = CenterHorizontally
+                            ) {
+                                Row(modifier = Modifier.weight(0.5f)) {
+                                    Column(
+                                        horizontalAlignment = CenterHorizontally,
+                                        modifier = Modifier.weight(0.4f)
                                     ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Edit,
+                                            contentDescription = stringResource(id = R.string.rename),
+                                            modifier = Modifier
+                                                .clip(CircleShape)
+                                                .background(Blue)
+                                                .padding(10.dp)
+                                        )
+                                        Spacer(modifier = Modifier.height(3.dp))
                                         Text(
-                                            text = stringResource(id = R.string.cancel),
-                                            fontSize = 10.sp,
-                                            textAlign = TextAlign.Center
+                                            text = stringResource(id = R.string.rename),
+                                            fontSize = 10.sp
                                         )
                                     }
 
+                                    Spacer(modifier = Modifier.weight(0.1f))
+                                    Column(
+                                        horizontalAlignment = CenterHorizontally,
+                                        modifier = Modifier.weight(0.4f)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Delete,
+                                            contentDescription = stringResource(id = R.string.delete),
+                                            modifier = Modifier
+                                                .clip(CircleShape)
+                                                .background(Color.Red)
+                                                .clickable {
+                                                    println(clickedNote)
+                                                    scope.launch {
+                                                        noteDao.delete(clickedNote)
+                                                        shadowState = false
+                                                        notes = notes
+                                                            .toMutableList()
+                                                            .also { it.remove(clickedNote) }
+                                                    }
+                                                }
+                                                .padding(10.dp))
+                                        Spacer(modifier = Modifier.height(3.dp))
+                                        Text(
+                                            text = stringResource(id = R.string.delete),
+                                            fontSize = 10.sp
+                                        )
+                                    }
 
                                 }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Box(
+                                    contentAlignment = Center,
+                                    modifier = Modifier
+                                        .weight(0.2f)
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(Color.DarkGray)
+                                        .clickable { shadowState = false }
+                                        .padding(horizontal = 15.dp, vertical = 3.dp)
+                                ) {
+                                    Text(
+                                        text = stringResource(id = R.string.cancel),
+                                        fontSize = 10.sp,
+                                        textAlign = TextAlign.Center
+                                    )
+                                }
                             }
-                        } else {
-                            HorizontalPager(count = 2) { page ->
+                        }
+                    } else {
+                        Box {
+                            HorizontalPager(
+                                state = pagerState,
+                                count = 2
+                            ) { page ->
                                 Column(
                                     modifier = Modifier
                                         .fillMaxSize()
@@ -260,24 +277,25 @@ class MainActivity : ComponentActivity() {
                                                 )
                                             }
                                         }
-                                        Image(
-                                            painter = painterResource(id = if (page == 0) R.drawable.ic_page_first else R.drawable.ic_page_second),
-                                            contentDescription = null,
-                                            modifier = Modifier
-                                                .align(alignment = BottomCenter)
-                                                .padding(bottom = 5.dp)
-                                        )
+
                                     }
+
                                 }
                             }
+                            HorizontalPagerIndicator(
+                                pagerState = pagerState,
+                                modifier = Modifier
+                                    .align(BottomCenter)
+                                    .padding(5.dp),
+                            )
                         }
-
-
                     }
+
+
                 }
-                    }
-
+            }
         }
+
     }
 }
 
@@ -297,10 +315,27 @@ fun NoteItem(note: Note, onClick: () -> Unit, onLongClick: () -> Unit) {
             .padding(5.dp)
     ) {
         Row {
-            Text(text = note.name, fontSize = 14.sp, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(weight = 1f,fill = false))
+            Text(
+                text = note.name,
+                fontSize = 14.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(weight = 1f, fill = false)
+            )
             Spacer(modifier = Modifier.width(5.dp))
-            Text(text = Date(Timestamp(note.createTime).time).toString(), fontSize = 14.sp, modifier = Modifier.wrapContentWidth(), maxLines = 1)
+            Text(
+                text = Date(Timestamp(note.createTime).time).toString(),
+                fontSize = 14.sp,
+                modifier = Modifier.wrapContentWidth(),
+                maxLines = 1
+            )
         }
-        Text(text = note.content, maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 12.sp, color = Color.LightGray)
+        Text(
+            text = note.content,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            fontSize = 12.sp,
+            color = Color.LightGray
+        )
     }
 }
