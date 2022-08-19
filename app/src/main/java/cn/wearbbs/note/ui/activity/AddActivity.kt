@@ -20,6 +20,7 @@ import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication
 import cn.wearbbs.note.database.bean.Note
 import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class AddActivity : ComponentActivity() {
@@ -49,8 +50,14 @@ class AddActivity : ComponentActivity() {
                         )
                         Spacer(modifier = Modifier.height(5.dp))
                         val msg = stringResource(id = R.string.add_successfully)
+                        val error = stringResource(id = R.string.file_name_cannot_be_blank)
                         Button(onClick = {
                             scope.launch {
+                                if (name.isBlank()) {
+                                    Toast.makeText(this@AddActivity, error, Toast.LENGTH_SHORT)
+                                        .show()
+                                    cancel()
+                                }
                                 MainApplication.noteDao.insertAll(
                                     Note(
                                         name = name,

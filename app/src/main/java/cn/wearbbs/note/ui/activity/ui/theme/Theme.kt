@@ -3,8 +3,11 @@ package cn.wearbbs.note.ui.activity.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 
 private val DarkColorPalette = darkColors(
     primary = Blue,
@@ -35,10 +38,22 @@ fun WearNoteTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composab
 //        LightColorPalette
 //    }
     val colors = DarkColorPalette
+    val fontScale = LocalDensity.current.fontScale
+    val displayMetrics = LocalContext.current.resources.displayMetrics
+    val widthPixels = displayMetrics.widthPixels
     MaterialTheme(
         colors = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
+        content = {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = widthPixels / 200.0f,
+                    fontScale = fontScale
+                )
+            ) {
+                content()
+            }
+        }
     )
 }

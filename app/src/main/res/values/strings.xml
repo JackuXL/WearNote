@@ -20,4 +20,6 @@
     <string name="enter">换行</string>
     <string name="file_name">文件名</string>
     <string name="add_successfully">新建成功</string>
+    <string name="title_activity_rename">RenameActivity</string>
+    <string name="file_name_cannot_be_blank">文件名不能为空</string>
 </resources>

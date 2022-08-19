@@ -16,6 +16,15 @@
         android:theme="@style/Theme.WearNote"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.RenameActivity"
+            android:exported="false"
+            android:label="@string/title_activity_rename"
+            android:theme="@style/Theme.WearNote">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.activity.FullActivity"
             android:exported="false"
             android:label="@string/title_activity_full"

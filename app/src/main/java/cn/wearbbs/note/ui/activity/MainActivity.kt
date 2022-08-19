@@ -87,30 +87,34 @@ class MainActivity : ComponentActivity() {
                         notes = noteDao.getAll()
                     }
                     if (shadowState) {
-                        Box(modifier = Modifier.fillMaxSize()) {
+                        Box {
                             Image(
                                 painter = painterResource(id = R.drawable.bg_longpress),
                                 contentDescription = stringResource(id = R.string.background),
                                 modifier = Modifier.fillMaxSize()
                             )
                             Column(
-                                modifier = Modifier
-                                    .align(Center)
-                                    .fillMaxHeight(0.6f)
-                                    .fillMaxWidth(0.8f),
+                                modifier = Modifier.align(Center),
                                 horizontalAlignment = CenterHorizontally
                             ) {
-                                Row(modifier = Modifier.weight(0.5f)) {
-                                    Column(
-                                        horizontalAlignment = CenterHorizontally,
-                                        modifier = Modifier.weight(0.4f)
-                                    ) {
+                                Row {
+                                    Column(horizontalAlignment = CenterHorizontally) {
                                         Icon(
                                             imageVector = Icons.Default.Edit,
                                             contentDescription = stringResource(id = R.string.rename),
                                             modifier = Modifier
+                                                .size(50.dp)
                                                 .clip(CircleShape)
                                                 .background(Blue)
+                                                .clickable {
+                                                    shadowState = false
+                                                    launcher.launch(
+                                                        Intent(
+                                                            this@MainActivity,
+                                                            RenameActivity::class.java
+                                                        ).putExtra("id", clickedNote.id)
+                                                    )
+                                                }
                                                 .padding(10.dp)
                                         )
                                         Spacer(modifier = Modifier.height(3.dp))
@@ -120,19 +124,16 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
 
-                                    Spacer(modifier = Modifier.weight(0.1f))
-                                    Column(
-                                        horizontalAlignment = CenterHorizontally,
-                                        modifier = Modifier.weight(0.4f)
-                                    ) {
+                                    Spacer(modifier = Modifier.width(40.dp))
+                                    Column(horizontalAlignment = CenterHorizontally) {
                                         Icon(
                                             imageVector = Icons.Default.Delete,
                                             contentDescription = stringResource(id = R.string.delete),
                                             modifier = Modifier
+                                                .size(50.dp)
                                                 .clip(CircleShape)
                                                 .background(Color.Red)
                                                 .clickable {
-                                                    println(clickedNote)
                                                     scope.launch {
                                                         noteDao.delete(clickedNote)
                                                         shadowState = false
@@ -150,11 +151,10 @@ class MainActivity : ComponentActivity() {
                                     }
 
                                 }
-                                Spacer(modifier = Modifier.height(15.dp))
+                                Spacer(modifier = Modifier.height(20.dp))
                                 Box(
                                     contentAlignment = Center,
                                     modifier = Modifier
-                                        .weight(0.2f)
                                         .clip(RoundedCornerShape(10.dp))
                                         .background(Color.DarkGray)
                                         .clickable { shadowState = false }
@@ -162,10 +162,12 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     Text(
                                         text = stringResource(id = R.string.cancel),
-                                        fontSize = 10.sp,
+                                        fontSize = 12.sp,
                                         textAlign = TextAlign.Center
                                     )
                                 }
+
+
                             }
                         }
                     } else {
