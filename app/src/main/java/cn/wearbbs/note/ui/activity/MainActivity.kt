@@ -190,20 +190,22 @@ class MainActivity : ComponentActivity() {
                                                 id = R.string.about
                                             )
                                         )
-                                        Icon(
-                                            imageVector = Icons.Default.Add,
-                                            contentDescription = stringResource(id = R.string.add),
-                                            tint = Color.White,
-                                            modifier = Modifier
-                                                .clip(CircleShape)
-                                                .clickable {
-                                                    launcher.launch(
-                                                        Intent(
-                                                            this@MainActivity,
-                                                            AddActivity::class.java
+                                        if (page == 0) {
+                                            Icon(
+                                                imageVector = Icons.Default.Add,
+                                                contentDescription = stringResource(id = R.string.add),
+                                                tint = Color.White,
+                                                modifier = Modifier
+                                                    .clip(CircleShape)
+                                                    .clickable {
+                                                        launcher.launch(
+                                                            Intent(
+                                                                this@MainActivity,
+                                                                AddActivity::class.java
+                                                            )
                                                         )
-                                                    )
-                                                })
+                                                    })
+                                        }
                                     }
                                     Spacer(modifier = Modifier.height(5.dp))
                                     Box(modifier = Modifier.fillMaxSize()) {
