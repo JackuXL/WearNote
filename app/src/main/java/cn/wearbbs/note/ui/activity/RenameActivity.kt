@@ -38,10 +38,8 @@ class RenameActivity : ComponentActivity() {
                         note = MainApplication.noteDao.findById(intent.getIntExtra("id", 0))
                     }
                     val keyboardController = LocalSoftwareKeyboardController.current
-                    Column(modifier = Modifier
-                        .padding(5.dp)
-                        .fillMaxWidth()) {
-                        Text(text = stringResource(id = R.string.edit))
+                    Column(modifier = Modifier.padding(5.dp)) {
+                        Text(text = stringResource(id = R.string.rename))
                         Spacer(modifier = Modifier.height(5.dp))
                         TextField(
                             value = note.name,
@@ -59,9 +57,7 @@ class RenameActivity : ComponentActivity() {
                         )
                         Spacer(modifier = Modifier.height(5.dp))
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(2f)
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             val msg = stringResource(id = R.string.save_successfully)
                             Button(onClick = {
@@ -72,7 +68,7 @@ class RenameActivity : ComponentActivity() {
                                     setResult(RESULT_OK)
                                     finish()
                                 }
-                            }, modifier = Modifier.weight(1.0f)) {
+                            }, modifier = Modifier.fillMaxWidth()) {
                                 Text(text = stringResource(id = R.string.save))
                             }
                         }

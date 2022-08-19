@@ -49,9 +49,7 @@ class EditActivity : ComponentActivity() {
                         content = TextFieldValue(note.content)
                     }
                     val keyboardController = LocalSoftwareKeyboardController.current
-                    Column(modifier = Modifier
-                        .padding(5.dp)
-                        .fillMaxWidth()) {
+                    Column(modifier = Modifier.padding(5.dp)) {
                         Row(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             modifier = Modifier.fillMaxWidth()
@@ -85,18 +83,14 @@ class EditActivity : ComponentActivity() {
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                             keyboardActions = KeyboardActions(
                                 onDone = { keyboardController?.hide() }),
-                            modifier = Modifier
-                                .weight(4f)
-                                .fillMaxWidth(),
+                            modifier = Modifier.weight(4f),
                             shape = RoundedCornerShape(8.dp),
                             label = null
                         )
 
                         Spacer(modifier = Modifier.height(5.dp))
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(2f)
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             val msg = stringResource(id = R.string.save_successfully)
                             Button(onClick = {
@@ -108,7 +102,7 @@ class EditActivity : ComponentActivity() {
                                     setResult(RESULT_OK)
                                     finish()
                                 }
-                            }, modifier = Modifier.weight(1.0f)) {
+                            }, modifier = Modifier.fillMaxWidth()) {
                                 Text(text = stringResource(id = R.string.save))
                             }
                             Spacer(modifier = Modifier.weight(0.1f))
@@ -128,7 +122,7 @@ class EditActivity : ComponentActivity() {
                                     )
                                 }
 
-                            }, modifier = Modifier.weight(1.0f)) {
+                            }, modifier = Modifier.fillMaxWidth()) {
                                 Text(text = stringResource(id = R.string.enter))
                             }
                         }
