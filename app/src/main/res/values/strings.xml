@@ -13,7 +13,7 @@
     <string name="empty">暂无文档</string>
     <string name="about_author">Made with ❤ by JackuXL</string>
     <string name="about_organization">TechNetSpace 出品</string>
-    <string name="about_feedback">反馈：support@technet.space</string>
+    <string name="about_feedback">反馈邮箱：support@technet.space</string>
     <string name="edit">编辑</string>
     <string name="save_successfully">保存成功</string>
     <string name="save">保存</string>
@@ -22,4 +22,5 @@
     <string name="add_successfully">新建成功</string>
     <string name="title_activity_rename">RenameActivity</string>
     <string name="file_name_cannot_be_blank">文件名不能为空</string>
+    <string name="full_screen">全屏</string>
 </resources>

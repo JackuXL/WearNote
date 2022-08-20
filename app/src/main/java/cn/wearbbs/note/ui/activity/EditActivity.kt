@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,8 +13,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication
 import cn.wearbbs.note.database.bean.Note
+import cn.wearbbs.note.ui.activity.compose.PainterTitle
 import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
 import kotlinx.coroutines.launch
 
@@ -50,29 +47,22 @@ class EditActivity : ComponentActivity() {
                     }
                     val keyboardController = LocalSoftwareKeyboardController.current
                     Column(modifier = Modifier.padding(5.dp)) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(text = stringResource(id = R.string.edit))
-                            Icon(
-                                painter = painterResource(id = R.drawable.baseline_fullscreen_24),
-                                contentDescription = "Add",
-                                tint = Color.White,
-                                modifier = Modifier
-                                    .clip(CircleShape)
-                                    .clickable {
-                                        scope.launch {
-                                            MainApplication.noteDao.update(note)
-                                            startActivity(
-                                                Intent(
-                                                    this@EditActivity,
-                                                    FullActivity::class.java
-                                                ).putExtra("id", note.id)
-                                            )
-                                        }
-                                    })
-                        }
+                        PainterTitle(
+                            title = stringResource(id = R.string.edit),
+                            icon = painterResource(id = R.drawable.baseline_fullscreen_24),
+                            iconDescription = stringResource(id = R.string.full_screen),
+                            onIconClick = {
+                                scope.launch {
+                                    MainApplication.noteDao.update(note)
+                                    startActivity(
+                                        Intent(
+                                            this@EditActivity,
+                                            FullActivity::class.java
+                                        ).putExtra("id", note.id)
+                                    )
+                                }
+                            }
+                        )
                         Spacer(modifier = Modifier.height(5.dp))
                         TextField(
                             value = content,
@@ -102,10 +92,10 @@ class EditActivity : ComponentActivity() {
                                     setResult(RESULT_OK)
                                     finish()
                                 }
-                            }, modifier = Modifier.fillMaxWidth()) {
+                            }, modifier = Modifier.weight(1.0f)) {
                                 Text(text = stringResource(id = R.string.save))
                             }
-                            Spacer(modifier = Modifier.weight(0.1f))
+                            Spacer(modifier = Modifier.width(10.dp))
                             Button(onClick = {
                                 with(content.annotatedString.text) {
                                     content = content.copy(
@@ -122,7 +112,7 @@ class EditActivity : ComponentActivity() {
                                     )
                                 }
 
-                            }, modifier = Modifier.fillMaxWidth()) {
+                            }, modifier = Modifier.weight(1.0f)) {
                                 Text(text = stringResource(id = R.string.enter))
                             }
                         }

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication
 import cn.wearbbs.note.database.bean.Note
+import cn.wearbbs.note.ui.activity.compose.VectorTitle
 import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
 import kotlinx.coroutines.launch
 
@@ -39,7 +40,7 @@ class RenameActivity : ComponentActivity() {
                     }
                     val keyboardController = LocalSoftwareKeyboardController.current
                     Column(modifier = Modifier.padding(5.dp)) {
-                        Text(text = stringResource(id = R.string.rename))
+                        VectorTitle(title = stringResource(id = R.string.rename))
                         Spacer(modifier = Modifier.height(5.dp))
                         TextField(
                             value = note.name,
