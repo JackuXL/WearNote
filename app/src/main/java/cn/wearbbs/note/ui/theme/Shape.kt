@@ -1,4 +1,4 @@
-package cn.wearbbs.note.ui.activity.ui.theme
+package cn.wearbbs.note.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

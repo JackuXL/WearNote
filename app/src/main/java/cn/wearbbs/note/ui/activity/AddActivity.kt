@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication
 import cn.wearbbs.note.database.bean.Note
-import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
+import cn.wearbbs.note.ui.theme.WearNoteTheme
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 

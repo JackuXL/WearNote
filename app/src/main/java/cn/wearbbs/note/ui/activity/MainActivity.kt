@@ -1,6 +1,5 @@
 package cn.wearbbs.note.ui.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -35,8 +34,8 @@ import cn.wearbbs.note.R
 import cn.wearbbs.note.application.MainApplication.Companion.noteDao
 import cn.wearbbs.note.database.bean.Note
 import cn.wearbbs.note.ui.activity.compose.*
-import cn.wearbbs.note.ui.activity.ui.theme.Blue
-import cn.wearbbs.note.ui.activity.ui.theme.WearNoteTheme
+import cn.wearbbs.note.ui.theme.Blue
+import cn.wearbbs.note.ui.theme.WearNoteTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -62,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     val launcher =
                         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                             when (it.resultCode) {
-                                Activity.RESULT_OK -> {
+                                RESULT_OK -> {
                                     listFlag = !listFlag
                                 }
                             }
