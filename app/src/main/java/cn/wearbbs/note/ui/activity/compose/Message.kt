@@ -30,7 +30,7 @@ fun EmptyMessage() {
         )
         Text(
             text = stringResource(id = R.string.empty),
-            fontSize = 12.sp
+            fontSize = 14.sp
         )
     }
 }

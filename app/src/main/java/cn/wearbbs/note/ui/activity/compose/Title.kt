@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import cn.wearbbs.note.ui.theme.Typography
 
 @Composable
 fun VectorTitle(
@@ -25,7 +26,7 @@ fun VectorTitle(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(text = title)
+        Text(text = title, style = Typography.h6)
         if (icon != null) {
             Icon(
                 imageVector = icon,
@@ -53,7 +54,7 @@ fun PainterTitle(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text(text = title)
+        Text(text = title, style = Typography.h6)
         if (icon != null) {
             Icon(
                 painter = icon,

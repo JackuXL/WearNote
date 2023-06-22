@@ -10,10 +10,11 @@
     <string name="note">文档</string>
     <string name="about">关于</string>
     <string name="add">新建</string>
+    <string name="empty_content">无附加文本</string>
     <string name="empty">暂无文档</string>
     <string name="about_author">Made with ❤ by JackuXL</string>
     <string name="about_organization">TechNetSpace 出品</string>
-    <string name="about_feedback">反馈邮箱：support@technet.space</string>
+    <string name="about_feedback">反馈：support@technet.space</string>
     <string name="edit">编辑</string>
     <string name="save_successfully">保存成功</string>
     <string name="save">保存</string>
@@ -23,4 +24,12 @@
     <string name="title_activity_rename">RenameActivity</string>
     <string name="file_name_cannot_be_blank">文件名不能为空</string>
     <string name="full_screen">全屏</string>
+    <string name="about_opensource">本项目在 GitHub 开源</string>
+    <string name="about_github">https://github.com/JackuXL/WearNote</string>
+    <string name="recovery">找回丢失文档</string>
+    <string name="title_activity_recovery">RecoveryActivity</string>
+    <string name="recovery_button">第二步：找回丢失文档</string>
+    <string name="request_for_permission">第一步：请求权限</string>
+    <string name="unnamed">未命名</string>
+    <string name="recover_successfully">找回成功%s个文件</string>
 </resources>

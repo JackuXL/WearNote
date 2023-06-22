@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".application.MainApplication"
@@ -14,7 +15,13 @@
         android:roundIcon="@drawable/ic_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WearNote"
+        android:requestLegacyExternalStorage="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.activity.RecoveryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_recovery"
+            android:theme="@style/Theme.WearNote" />
         <activity
             android:name=".ui.activity.RenameActivity"
             android:exported="false"
