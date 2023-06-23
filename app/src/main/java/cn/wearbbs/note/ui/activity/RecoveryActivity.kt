@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -48,7 +50,7 @@ class RecoveryActivity : ComponentActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
                 // 文件存储权限已授予
-                Toast.makeText(this, "文件存储权限已授予1", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "文件存储权限已授予", Toast.LENGTH_SHORT).show()
                 // 执行相关操作
                 granted.value = true
             } else {
@@ -73,8 +75,10 @@ class RecoveryActivity : ComponentActivity() {
                         println(isButtonEnabled)
                     }
                     val scope = rememberCoroutineScope()
-
-                    Column(modifier = Modifier.padding(5.dp)) {
+                    val scroll = rememberScrollState(0)
+                    Column(modifier = Modifier
+                        .padding(5.dp)
+                        .verticalScroll(scroll)) {
                         Text(text = stringResource(id = R.string.recovery))
                         Spacer(modifier = Modifier.height(5.dp))
                         Text(

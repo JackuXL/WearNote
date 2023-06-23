@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cn.wearbbs.note.R
@@ -30,7 +31,8 @@ fun EmptyMessage() {
         )
         Text(
             text = stringResource(id = R.string.empty),
-            fontSize = 14.sp
+            fontSize = 14.sp,
+            textAlign = TextAlign.Center
         )
     }
 }

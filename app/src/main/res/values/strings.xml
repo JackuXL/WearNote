@@ -11,9 +11,9 @@
     <string name="about">关于</string>
     <string name="add">新建</string>
     <string name="empty_content">无附加文本</string>
-    <string name="empty">暂无文档</string>
-    <string name="about_author">Made with ❤ by JackuXL</string>
-    <string name="about_organization">TechNetSpace 出品</string>
+    <string name="empty">暂无文档\n如果您刚刚更新了版本，可以右滑点击最下方蓝色文字找回丢失文档</string>
+    <string name="about_author">作者：JackuXL</string>
+    <string name="about_organization">出品：TechNetSpace</string>
     <string name="about_feedback">反馈：support@technet.space</string>
     <string name="edit">编辑</string>
     <string name="save_successfully">保存成功</string>
